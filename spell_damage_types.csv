@@ -1,0 +1,19 @@
+acid,2
+bludgeoning,3
+bludgeoning + cold,1
+cold,5
+fire,15
+fire + bludgeoning,1
+fire + radiant,1
+fire or cold,1
+force,7
+lightning,6
+necrotic,9
+piercing,7
+poison,3
+psychic,9
+radiant,7
+radiant or necrotic,2
+slashing,2
+thunder,3
+variable,8
