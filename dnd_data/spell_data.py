@@ -6,7 +6,6 @@ class SpellList:
 
     def __init__(self):
         self.spells = []
-        self.damage_totals = dict()
 
     def _add_spells(self, data):
         """
@@ -32,23 +31,29 @@ class SpellList:
             self.add_json_spells(filepath)
 
     def calculate_damage_types(self):
-        self.damage_totals = dict()
-        for spell in self.spells:
-            for damage_type in spell.get('damageInflict', []):
-                if damage_type not in self.damage_totals:
-                    self.damage_totals[damage_type] = dict()
-                self.damage_totals[damage_type][spell["level"]] = \
-                    self.damage_totals[damage_type].get(spell["level"], 0) + 1
-                self.damage_totals[damage_type]["total"] = \
-                    self.damage_totals[damage_type].get("total", 0) + 1
+        return self.calculate_inflict('damageInflict')
 
-    def write_damage_type_csv(self, filepath):
+    def calculate_condition_types(self):
+        return self.calculate_inflict('conditionInflict')
+
+    def write_inflict_type_csv(self, filepath, data):
         fieldnames = ['type', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "total"]
         with open(filepath, 'w', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames)
             writer.writeheader()
-            for k, row in self.damage_totals.items():
-                row['type'] = k
+            for k, row in data.items():
+                row['type'] = k.title()
                 writer.writerow(row)
 
+    def calculate_inflict(self, inflict_type):
+        inflict_totals = dict()
+        for spell in self.spells:
+            for inflict in spell.get(inflict_type, []):
+                if inflict not in inflict_totals:
+                    inflict_totals[inflict] = dict()
+                inflict_totals[inflict][spell["level"]] = \
+                    inflict_totals[inflict].get(spell["level"], 0) + 1
+                inflict_totals[inflict]["total"] = \
+                    inflict_totals[inflict].get("total", 0) + 1
+        return inflict_totals
 

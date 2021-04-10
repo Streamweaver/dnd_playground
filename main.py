@@ -56,7 +56,7 @@ if __name__ == "__main__":
         'data/spells/spells-xge.json',
         'data/spells/spells-tce.json'
     ])
-    spell_list.calculate_damage_types()
-    spell_list.write_damage_type_csv('spell_damage_types.csv')
+    data = spell_list.calculate_condition_types()
+    spell_list.write_inflict_type_csv('spell_condition_types.csv', data)
 
 
