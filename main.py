@@ -2,6 +2,7 @@ import csv
 import pprint
 from dnd_data.monstersheetparser import monster_language_count, WriParser, saves_count
 from dnd_data.spellsheetparser import SpellData
+from dnd_data.spell_data import SpellList
 from dnd_data.util import parse_csv
 
 def write_monster_save_csv(data):
@@ -49,7 +50,13 @@ def write_spell_save_types(data):
 
 
 if __name__ == "__main__":
-    data = parse_csv('data/monster_spreadsheet_20210402.csv')
-    write_monster_save_csv(data)
+    spell_list = SpellList()
+    spell_list.parse_json_files([
+        'data/spells/spells-phb.json',
+        'data/spells/spells-xge.json',
+        'data/spells/spells-tce.json'
+    ])
+    spell_list.calculate_damage_types()
+    spell_list.write_damage_type_csv('spell_damage_types.csv')
 
 
