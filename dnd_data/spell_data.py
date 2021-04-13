@@ -69,3 +69,10 @@ class SpellList:
     def _increment_class(selfd, d, classes):
         for character_class in classes.get('fromClassList', []):
             d[character_class["name"]] = d.get(character_class["name"], 0) + 1
+
+    def calculae_range_type(self):
+        data = dict()
+        for spell in self.spells:
+            range_type = spell["range"]["type"]
+            data[range_type] = data.get(range_type, 0) + 1
+        return data

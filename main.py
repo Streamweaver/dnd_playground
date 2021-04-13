@@ -56,13 +56,5 @@ if __name__ == "__main__":
         'data/spells/spells-xge.json',
         'data/spells/spells-tce.json'
     ])
-    condition_data = spell_list.calculate_condition_types()
-    damage_data = spell_list.calculate_damage_types()
-
-    spell_list.write_inflict_type_csv('spell_damage_types_bylevel.csv', damage_data, spell_list.level_fieldnames)
-    spell_list.write_inflict_type_csv('spell_condition_types_bylevel.csv', condition_data, spell_list.level_fieldnames)
-
-    spell_list.write_inflict_type_csv('spell_damage_types_byclass.csv', damage_data, spell_list.class_fieldnames)
-    spell_list.write_inflict_type_csv('spell_condition_types_byclass.csv', condition_data, spell_list.class_fieldnames)
-
+    print(spell_list.calculae_range_type())
 
