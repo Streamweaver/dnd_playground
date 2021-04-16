@@ -76,3 +76,13 @@ class SpellList:
             range_type = spell["range"]["type"]
             data[range_type] = data.get(range_type, 0) + 1
         return data
+
+    def calculate_savingthrow_type(self):
+        data = dict()
+        for spell in self.spells:
+            if "savingThrow" in spell:
+                for saving_throw in spell["savingThrow"]:
+                    data[saving_throw] = data.get(saving_throw, dict())
+                    self._increment_class(data[saving_throw], spell["classes"])
+                    data[saving_throw]["total"] = data[saving_throw].get("total", 0) + 1
+        return data
